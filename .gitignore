@@ -1,0 +1,31 @@
+# Archivos y carpetas del entorno virtual
+.venv
+venv
+env
+
+# Archivos de caché
+__pycache__/
+*.pyc
+*.pyo
+
+# IDEs (opcional, pero recomendado)
+.idea/             # Directorio de proyectos de PyCharm
+.vscode/           # Directorio de VS Code
+.vscode-test/
+.history/
+
+# Archivos y bases de datos específicas del sistema operativo
+.DS_Store
+.Trash-1000
+Thumbs.db
+
+# Archivos de la base de datos local
+*.sqlite
+*.db
+*.mysql
+your_test_db.sql
+
+# Archivos de la configuración de la base de datos
+# Comenta estas líneas si necesitas subir tus configuraciones
+# .env
+# alembic.ini
