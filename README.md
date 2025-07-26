@@ -1,0 +1,2 @@
+# CRUD-de-Usuarios-con-Python-FastAPI-MySQL-SQLAlchemy-y-Alembic
+Aplicación backend robusta para la gestión de usuarios (CRUD: Create, Read, Update, Delete). Desarrollada con Python y el microframework FastAPI, utiliza SQLAlchemy para la interacción con una base de datos MySQL. Las migraciones de la base de datos se manejan eficientemente con Alembic, asegurando la consistencia y escalabilidad del esquema.
