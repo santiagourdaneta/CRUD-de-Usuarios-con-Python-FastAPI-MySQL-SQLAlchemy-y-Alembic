@@ -84,6 +84,7 @@ def seed_database(num_users_to_seed: int = 50): # Cambiado a 50 por defecto
                 users_added_count += 1
             else:
                 # Si el email generado aleatoriamente ya existe
+                # Solo mostrar el email, nunca el dict completo
                 print(f"[{i+1}/{num_users_to_seed}] Usuario {user_data['email']} ya existe (generado aleatoriamente duplicado o ya existente). Saltando.")
 
             # Commit cada cierto número de usuarios para no tener una transacción gigante
