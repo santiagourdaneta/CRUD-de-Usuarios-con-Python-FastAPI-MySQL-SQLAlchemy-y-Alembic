@@ -22,6 +22,17 @@ fake = Faker('es_ES') # Puedes usar 'en_US' o el locale que prefieras
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
+def mask_email(email: str) -> str:
+    """Enmascara parcialmente el email para evitar exponerlo en logs."""
+    if "@" not in email:
+        return "***"
+    local_part, domain = email.split("@", 1)
+    if len(local_part) <= 2:
+        masked_local = "*" * len(local_part)
+    else:
+        masked_local = local_part[0] + "*" * (len(local_part) - 2) + local_part[-1]
+    return f"{masked_local}@{domain}"
+
 def generate_random_user_data():
     """Genera datos de usuario aleatorios usando Faker."""
     name = fake.name()
@@ -76,7 +87,7 @@ def seed_database(num_users_to_seed: int = 50): # Cambiado a 50 por defecto
             # Verificar si el email ya existe para evitar duplicados
             existing_user = db.query(User).filter(User.email == user_data["email"]).first()
             if not existing_user:
-                print(f"[{i+1}/{num_users_to_seed}] Creando usuario: {user_data['email']}")
+                print(f"[{i+1}/{num_users_to_seed}] Creando usuario: {mask_email(user_data['email'])}")
                 user_data["password"] = get_password_hash(user_data["password"])
 
                 user_in = UserCreate(**user_data)
@@ -85,7 +96,7 @@ def seed_database(num_users_to_seed: int = 50): # Cambiado a 50 por defecto
             else:
                 # Si el email generado aleatoriamente ya existe
                 # Solo mostrar el email, nunca el dict completo
-                print(f"[{i+1}/{num_users_to_seed}] Usuario {user_data['email']} ya existe (generado aleatoriamente duplicado o ya existente). Saltando.")
+                print(f"[{i+1}/{num_users_to_seed}] Usuario {mask_email(user_data['email'])} ya existe (generado aleatoriamente duplicado o ya existente). Saltando.")
 
             # Commit cada cierto número de usuarios para no tener una transacción gigante
             if (i + 1) % 10 == 0: # Commit cada 10 usuarios para 50
